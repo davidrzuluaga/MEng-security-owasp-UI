@@ -1,14 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
-import styled from "@emotion/styled";
-
-const TableStyles = styled.div`
-  * {
-    color: #fff;
-  }
-  .MuiDataGrid-columnHeaders * {
-    color: black;
-  }
-`;
+import { TableStyles } from "./styles";
 
 type RowType = {
   [key: string]: string | number;
