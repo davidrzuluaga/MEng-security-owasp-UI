@@ -3,8 +3,12 @@ import { get } from "@/utils/fetch";
 
 export const getAllPosts = async () => {
   try {
-    return get(`${process.env.API_URL}/posts`);
+    const posts = await get<{ posts: PostType[] }>(
+      `${process.env.API_URL ?? 'http://localhost:3030'}/posts`
+    );
+    return posts?.posts;
   } catch (error) {
     console.log(error);
+    return Promise.resolve([]);
   }
 };
