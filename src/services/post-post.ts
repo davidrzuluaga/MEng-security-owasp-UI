@@ -1,11 +1,11 @@
 import { PostType } from "@/types/post";
 import { post as postAPI } from "@/utils/fetch";
 
-export const postAPost = async ({title, post, author_name}: PostType) => {
+export const postAPost = async ({title, content, author_name}: PostType) => {
   try {
     const posts = await postAPI(
       `${process.env.API_URL ?? 'http://localhost:3030'}/posts` , {
-        title, post, author_name
+        title, content, author_name
       }
     );
     return posts;

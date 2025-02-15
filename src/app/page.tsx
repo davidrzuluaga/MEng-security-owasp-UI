@@ -1,5 +1,3 @@
-export default function Home() {
-    return (
-        <p>Home</p>
-    )
-}
+import Posts from "./posts/page";
+
+export default Posts;

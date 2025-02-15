@@ -26,14 +26,17 @@ interface FormModalProps {
   submit: (post: PostType) => void;
 }
 
+const defaultPost = {
+  title: "",
+  content: "",
+  author_name: "",
+};
+
 const FormModal = (props: FormModalProps) => {
   const { post = {} as PostType, submit } = props;
   const [open, setOpen] = useState(false);
-  const [formValues, setFormValues] = useState<PostType>({
-    title: "",
-    post: "",
-    author_name: "",
-  });
+  const [loading, setLoading] = useState(false);
+  const [formValues, setFormValues] = useState<PostType>(defaultPost);
 
   useEffect(() => {
     if (post?.id) {
@@ -48,10 +51,13 @@ const FormModal = (props: FormModalProps) => {
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event: FormEvent): void => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    submit(formValues);
-
+    setLoading(true);
+    await submit(formValues);
+    setLoading(false);
+    setFormValues(defaultPost);
+    handleClose();
   };
 
   const modalName = !!post?.id ? "Edit Post" : "Create Post";
@@ -72,16 +78,18 @@ const FormModal = (props: FormModalProps) => {
               onChange={handleChange}
               required
               fullWidth
+              disabled={loading}
             />
             <TextField
               label="Post"
-              name="post"
-              value={formValues.post}
+              name="content"
+              value={formValues.content}
               onChange={handleChange}
               required
               fullWidth
               multiline
               rows={4}
+              disabled={loading}
             />
             <TextField
               label="Author Name"
@@ -90,8 +98,14 @@ const FormModal = (props: FormModalProps) => {
               onChange={handleChange}
               required
               fullWidth
+              disabled={loading}
             />
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              disabled={loading}
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
               Submit
             </Button>
             <Button onClick={handleClose} variant="outlined" color="secondary">

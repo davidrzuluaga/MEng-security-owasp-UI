@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import { Modal, Box, Typography, Button } from "@mui/material";
 import styled from "@emotion/styled";
 import { PostType } from "@/types/post";
-import FormModal from "./form-modal";
+import FormModal from "./post-form";
 import { patchPost } from "@/services/patch-post";
 import { getAllPosts } from "@/services";
 import { PostsContext } from "@/app/posts/components/contexts/posts-context";
-import CreateCommentForm from "@/app/posts/components/comments/create-comment";
+import CreateCommentForm from "@/components/comments/create-comment";
+import AllCommentsOfPost from "../comments/all-comments-post";
 
 const StyledBox = styled(Box)`
   position: absolute;
@@ -62,12 +63,13 @@ const PostDetailsModal: React.FC<PostDetailsModalProps> = ({
           {post.title}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          {post.post}
+          {post.content}
         </Typography>
         <Typography variant="subtitle1" color="textSecondary">
           Author: {post.author_name}
         </Typography>
 
+        <AllCommentsOfPost comments={post?.comments || []} />
         <CreateCommentForm post={post} />
 
         <ButtonContainer>

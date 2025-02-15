@@ -3,7 +3,7 @@ import { getAllPosts } from "@/services";
 import { PostsGridStyles } from "./styles";
 import { Grid } from "@mui/material";
 import { PostType } from "@/types/post";
-import { PostCard } from "@/components/post-card/card";
+import { PostCard } from "@/components/posts/post-card";
 import { CreatePost } from "./create-post";
 import { PostsContext } from "../contexts/posts-context";
 import { useContext, useEffect, useCallback } from "react";

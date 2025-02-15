@@ -2,8 +2,8 @@
 import { PostType } from "@/types/post";
 import { Grid, Card } from "@mui/material";
 import { useContext, useState } from "react";
-import FormModal from "./form-modal";
-import PostDetailsModal from "./post-modal";
+import FormModal from "./post-form";
+import PostDetailsModal from "./post-details";
 import { patchPost } from "@/services/patch-post";
 import { PostsContext } from "@/app/posts/components/contexts/posts-context";
 import { getAllPosts } from "@/services";
@@ -16,6 +16,7 @@ export const PostCard = ({ post }: { post: PostType }) => {
     await patchPost(newPost);
     let posts = await getAllPosts();
     setPosts(posts);
+    setOpen(false);
   };
 
   return (
@@ -26,7 +27,7 @@ export const PostCard = ({ post }: { post: PostType }) => {
           <FormModal post={post} submit={onEditSubmit} />
         </div>
         <h2>{post.title}</h2>
-        <p className="content">{post.post}</p>
+        <p className="content">{post.content}</p>
         <p className="author">{post.author_name}</p>
         <div className="readme" onClick={() => setOpen(true)}>
           <p>Read More</p>
